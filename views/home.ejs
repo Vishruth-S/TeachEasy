@@ -11,16 +11,15 @@
 
     <h3> Hello home page</h3>
     <form action="/create" method="POST">
-        <!-- <input name="name" type="text" placeholder="Your name" required> -->
+        <input class="usernameInput" name="name" type="text" placeholder="Your name" required>
         <input name="code" type="text" value="<%=id%>" readonly>
         <button type="submit">Create</button>
     </form>
     <form action="/join" method="POST">
-        <!-- <input type="text" name="name " placeholder="Your name" required> -->
+        <input class="usernameInput" type="text" name="name" placeholder="Your name" required>
         <input type="text" name="code" placeholder="Enter room code">
         <button type="submit">Join</button>
     </form>
-
 
     <!-- <h3><%=id%></h3> -->
 </body>

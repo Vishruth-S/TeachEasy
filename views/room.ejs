@@ -21,16 +21,34 @@
     <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
     <script>
         const ROOM_ID = "<%= roomId %>"
+        const USERNAME = "<%= username %>"
     </script>
 </head>
 
 <body>
+
     <div class="main">
+
         <div class="mainLeft">
+            <div id="DrawingBoard" style="display: none;">
+                <div class="colors">
+                    <div class="color black"></div>
+                    <div class="color red"></div>
+                    <div class="color green"></div>
+                    <div class="color blue"></div>
+                    <div class="color yellow"></div>
+                </div>
+                <div id="canvasBlock">
+                    <canvas class="whiteboard"></canvas>
+                </div>
+            </div>
             <div class="mainVideos">
                 <div id="videoGrid"> </div>
 
             </div>
+
+
+            <!-- ============= -->
             <div class="mainControls">
                 <div class="mainControlsBlock">
                     <div onclick="muteUnmute()" class="mainControlsButton mainMuteButton">
@@ -56,9 +74,9 @@
                         <i class="fas fa-comment-alt"></i>
                         <span>Chat</span>
                     </div>
-                    <div class="mainControlsButton">
+                    <div onClick="enableDrawing()" class="mainControlsButton" id="enableDrawingBoard">
                         <i class="fas fa-record-vinyl"></i>
-                        <span>Record</span>
+                        <span>Toggle Drawing</span>
                     </div>
                 </div>
 
@@ -69,6 +87,9 @@
                 </div>
 
             </div>
+
+
+
 
         </div>
         <div class="mainRight">
@@ -86,16 +107,7 @@
         </div>
     </div>
 
-    <!-- ============= -->
-    <canvas class="whiteboard"></canvas>
 
-    <div class="colors">
-        <div class="color black"></div>
-        <div class="color red"></div>
-        <div class="color green"></div>
-        <div class="color blue"></div>
-        <div class="color yellow"></div>
-    </div>
 
     <!-- ==== -->
 
