@@ -92,7 +92,8 @@
     }
 
     function onDrawingEvent(data) {
-        var w = canvas.width;
+
+        var w = canvas.width
         var h = canvas.height;
         drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     }
@@ -101,6 +102,19 @@
     function onResize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        // console.log($('#canvasBlock').width())
+        // canvas.width = $('#canvasBlock').width()
+        // canvas.height = $('#canvasBlock').height();
     }
 
 })();
+enableDrawing = () => {
+    let mainVideos = document.getElementById('videoGrid')
+    if (!mainVideos.style.display)
+        mainVideos.style.display = "flex"
+    console.log(mainVideos.style.display)
+    mainVideos.style.display = mainVideos.style.display === "flex" ? "none" : "flex"
+    let board = document.getElementById('DrawingBoard')
+    board.style.display = board.style.display === "block" ? "none" : "block"
+
+}

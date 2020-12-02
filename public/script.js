@@ -9,10 +9,12 @@ var peer = new Peer()
 const myPeer = new Peer(undefined, {
     path: '/peerjs',
     host: '/',
-    port: '5000',
+    port: '3030',
+    // port: '443'
 })
 
 const peers = {}
+const peerlist = []
 let myVideoStream
 navigator.mediaDevices
     .getUserMedia({
@@ -24,6 +26,8 @@ navigator.mediaDevices
         addVideoStream(myVideo, stream)
 
         socket.on('user-connected', (userId) => {
+            peerlist.push(userId)
+            console.log(peerlist)
             connectToNewUser(userId, stream)
             // alert('Somebody connected', userId)
         })
@@ -69,11 +73,16 @@ navigator.mediaDevices
         })
     })
 socket.on('user-disconnected', (userId) => {
+    peerlist = peerlist.filter(item => item !== userId)
+    console.log(peerlist)
     if (peers[userId]) peers[userId].close()
 })
 
 peer.on('open', (id) => {
-    socket.emit('join-room', ROOM_ID, id)
+    peerlist.push(id)
+    console.log(peerlist)
+    console.log(USERNAME)
+    socket.emit('join-room', ROOM_ID, id, USERNAME)
 })
 
 const connectToNewUser = (userId, stream) => {
