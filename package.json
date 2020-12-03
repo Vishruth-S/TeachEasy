@@ -1,5 +1,5 @@
 {
-  "name": "zoomclone",
+  "name": "VideoCall",
   "version": "1.0.0",
   "description": "A video call app just for education",
   "main": "server.js",
