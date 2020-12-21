@@ -45,7 +45,7 @@ io.on('connection', socket => {
         addUser({ id: userId, name: username, room: roomId });
 
         socket.join(roomId);
-        socket.to(roomId).broadcast.emit('user-connected', userId);
+        socket.to(roomId).broadcast.emit('user-connected', userId, username);
 
         // socket.emit('createMessage', `${username}, welcome to the room`, "admin")
         // socket.broadcast.to(roomId).emit('createMessage', `${username} has joined`, "admin")
@@ -55,9 +55,11 @@ io.on('connection', socket => {
         })
         socket.on('disconnect', () => {
             socket.to(roomId).broadcast.emit('user-disconnected', userId)
+            removeUser({ id: userId, name: username, room: roomId })
         })
     })
     socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+    console.log(getUsers())
 })
 
 const RandomIdGenerate = (length) => {

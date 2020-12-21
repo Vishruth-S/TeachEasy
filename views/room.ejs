@@ -30,16 +30,20 @@
     <div class="main">
 
         <div class="mainLeft">
-            <div id="DrawingBoard" style="display: none;">
-                <div class="colors">
-                    <div class="color black"></div>
-                    <div class="color red"></div>
-                    <div class="color green"></div>
-                    <div class="color blue"></div>
-                    <div class="color yellow"></div>
-                </div>
-                <div id="canvasBlock">
-                    <canvas class="whiteboard"></canvas>
+            <div class="row">
+                <div class="col-lg-10">
+                    <div id="DrawingBoard" style="display: none;">
+                        <div class="colors">
+                            <div class="color black"></div>
+                            <div class="color red"></div>
+                            <div class="color green"></div>
+                            <div class="color blue"></div>
+                            <div class="color yellow"></div>
+                        </div>
+                        <div id="canvasBlock">
+                            <canvas class="whiteboard"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="mainVideos">
@@ -68,12 +72,12 @@
                     </div>
                     <div class="mainControlsButton">
                         <i class="fas fa-user-friends"></i>
-                        <span>Participants</span>
+                        <span>Info</span>
                     </div>
-                    <div class="mainControlsButton">
+                    <!-- <div class="mainControlsButton">
                         <i class="fas fa-comment-alt"></i>
                         <span>Chat</span>
-                    </div>
+                    </div> -->
                     <div onClick="enableDrawing()" class="mainControlsButton" id="enableDrawingBoard">
                         <i class="fas fa-record-vinyl"></i>
                         <span>Toggle Drawing</span>
@@ -100,7 +104,6 @@
                 <ul class="messagesContainer">
                 </ul>
             </div>
-            <div class="messageSendingTo">To: <span>Everyone <i class="fas fa-angle-down"></i></span> </div>
             <div class="mainMessageContainer">
                 <input id="chatMessage" type="text" placeholder="Type message here...">
             </div>
