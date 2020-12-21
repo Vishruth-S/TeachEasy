@@ -14,7 +14,8 @@ const myPeer = new Peer(undefined, {
 })
 
 const peers = {}
-const peerlist = []
+let peerlist = []
+let usersInroom = []
 let myVideoStream
 navigator.mediaDevices
     .getUserMedia({
@@ -25,9 +26,8 @@ navigator.mediaDevices
         myVideoStream = stream
         addVideoStream(myVideo, stream)
 
-        socket.on('user-connected', (userId) => {
+        socket.on('user-connected', (userId, username) => {
             peerlist.push(userId)
-            console.log(peerlist)
             connectToNewUser(userId, stream)
             // alert('Somebody connected', userId)
         })
@@ -49,14 +49,11 @@ navigator.mediaDevices
             }
         })
 
-        socket.on('createMessage', (message, userId) => {
+        socket.on('createMessage', (message, username) => {
             $('ul').append(`<li >
 								<span class="messageHeader">
 									<span>
-										From 
-										<span class="messageSender">${userId}</span> 
-										to 
-										<span class="messageReceiver">Everyone:</span>
+										<span class="messageSender">${username}</span> 
 									</span>
 
 									${new Date().toLocaleString('en-US', {
@@ -74,14 +71,14 @@ navigator.mediaDevices
     })
 socket.on('user-disconnected', (userId) => {
     peerlist = peerlist.filter(item => item !== userId)
-    console.log(peerlist)
+    // console.log(peerlist)
     if (peers[userId]) peers[userId].close()
 })
 
 peer.on('open', (id) => {
     peerlist.push(id)
-    console.log(peerlist)
-    console.log(USERNAME)
+    // console.log(peerlist)
+    // console.log(USERNAME)
     socket.emit('join-room', ROOM_ID, id, USERNAME)
 })
 
@@ -178,30 +175,43 @@ const setPlayVideo = () => {
 // }
 //============screen=============
 
-//     document.getElementById("shareScreen").addEventListener('click', e => {
-//         navigator.mediaDevices.getDisplayMedia({
-//             video: {
-//                 cursor: "always"
-//             },
-//             audio: {
-//                 echoCancellation: true,
-//                 noiseSuppression: true
-//             }
-//         }).then(stream => {
-//             let videoTrack = stream.getVideoTracks()[0]
-//             videoTrack.onended = () => {
-//                 stopScreenShare()
-//             }
-//             let sender = currentPeer.getSenders().find(s => {
-//                 console.log(s.track.kind)
-//                 return s.track.kind == videoTrack.kind
+// document.getElementById("shareScreen").addEventListener('click', e => {
+//     navigator.mediaDevices.getDisplayMedia({
+//         video: {
+//             cursor: "always"
+//         },
+//         audio: {
+//             echoCancellation: true,
+//             noiseSuppression: true
+//         }
+//     }).then(stream => {
+//         let screenVideo = document.createElement('video')
+//         screenVideo.muted = true
+//         let videoTrack = stream.getVideoTracks()[0]
+//         videoTrack.onended = () => {
+//             stopScreenShare()
+//         }
+//         addVideoStream(screenVideo, stream)
+//         peer.on('call', (call) => {
+//             call.answer(stream)
+//             const video = document.createElement('video')
+//             call.on('stream', (userVideoStream) => {
+//                 addVideoStream(video, userVideoStream)
 //             })
-//             console.log("sender", sender)
-//             sender.replaceTrack(videoTrack)
-//         }).catch(err => {
-//             console.log("unable to share screen", err)
+//             call.on('close', () => {
+//                 video.remove()
+//             })
 //         })
+//         // let sender = currentPeer.getSenders().find(s => {
+//         //     console.log(s.track.kind)
+//         //     return s.track.kind == videoTrack.kind
+//         // })
+//         // console.log("sender", sender)
+//         // sender.replaceTrack(videoTrack)
+//     }).catch(err => {
+//         console.log("unable to share screen", err)
 //     })
+// })
 // })
 
 

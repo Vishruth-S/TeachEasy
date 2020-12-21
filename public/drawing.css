@@ -28,6 +28,7 @@ html, body {
 .whiteboard {
     background-color: white;
     border: 2px solid black;
+    width: 120%;
     /* height: 100%;
     width: 100%;
     position: absolute;

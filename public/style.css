@@ -13,6 +13,7 @@ video {
     height: 300px;
     width: 400px;
     object-fit: cover;
+    margin: 10px;
 }
 
 .main {
