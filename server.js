@@ -17,7 +17,6 @@ app.use(express.urlencoded({
 
 app.use('/peerjs', peerServer)
 app.get('/', (req, res) => {
-    // res.redirect(`/${uuidv4()}`)
     res.render('home', { id: RandomIdGenerate(9) })
 })
 
@@ -46,9 +45,6 @@ io.on('connection', socket => {
         socket.join(roomId);
         socket.to(roomId).broadcast.emit('user-connected', userId, username);
 
-        // socket.emit('createMessage', `${username}, welcome to the room`, "admin")
-        // socket.broadcast.to(roomId).emit('createMessage', `${username} has joined`, "admin")
-
         socket.on('message', message => {
             io.to(roomId).emit('createMessage', message, username)
         })
@@ -58,7 +54,6 @@ io.on('connection', socket => {
         socket.on('disconnect', () => {
             socket.to(roomId).broadcast.emit('user-disconnected', userId)
             removeUser(userId)
-            // console.log(getUsers())
             io.in(roomId).emit('users-in-room', getUsers())
         })
     })

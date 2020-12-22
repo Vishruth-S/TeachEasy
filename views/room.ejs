@@ -36,15 +36,17 @@
             <div class="row">
                 <div class="col-lg-10">
                     <div id="DrawingBoard" style="display: none;">
+
+                        <div id="canvasBlock">
+                            <canvas class="whiteboard"></canvas>
+                        </div>
                         <div class="colors">
                             <div class="color black"></div>
                             <div class="color red"></div>
                             <div class="color green"></div>
                             <div class="color blue"></div>
-                            <div class="color yellow"></div>
-                        </div>
-                        <div id="canvasBlock">
-                            <canvas class="whiteboard"></canvas>
+                            <div class="color white"></div>
+                            <!-- <button type="button" onclick="emitAndCanvas()" id="btnClear">CLEAR</button> -->
                         </div>
                     </div>
                 </div>
@@ -155,6 +157,8 @@
 
             document.execCommand("copy");
         }
+
+
     </script>
 </body>
 
