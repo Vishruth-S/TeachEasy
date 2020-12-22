@@ -66,7 +66,7 @@
                     </div>
                     <div onclick="playStop()" class="mainControlsButton mainVideoButton">
                         <i class="fas fa-video"></i>
-                        <span>Stop Video</span>
+                        <span>Video on</span>
                     </div>
                 </div>
 
@@ -75,9 +75,9 @@
                         <i class="fas fa-shield-alt"></i>
                         <span>Share screen</span>
                     </div>
-                    <div class="mainControlsButton">
+                    <div class="mainControlsButton" data-toggle="modal" data-target="#exampleModal">
                         <!-- <button data-toggle="modal" data-target="#exampleModal"> -->
-                        <div data-toggle="modal" data-target="#exampleModal">
+                        <div>
                             <i class="fas fa-user-friends"></i>
                             <div>Info</div>
                         </div>
@@ -95,10 +95,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Room code: <input type="text" value="<%= roomId%>" id="myInput">
-                                    </p>
+                                    <span>Room code: <input type="text" value="<%= roomId%>" id="myInput">
+                                    </span>
 
-                                    <button onclick="copyMeetingCode()">Copy</button>
+                                    <button onclick="copyMeetingCode()" id="copyBtn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -112,7 +114,7 @@
                     </div> -->
                     <div onClick="enableDrawing()" class="mainControlsButton" id="enableDrawingBoard">
                         <i class="fas fa-record-vinyl"></i>
-                        <span>Toggle Drawing</span>
+                        <span>Toggle whiteboard</span>
                     </div>
                 </div>
 
@@ -136,7 +138,9 @@
                 <ul class="messagesContainer">
                 </ul>
             </div>
+            <hr />
             <div class="mainMessageContainer">
+
                 <input id="chatMessage" type="text" placeholder="Type message here...">
             </div>
         </div>

@@ -151,7 +151,7 @@ const playStop = () => {
 const setStopVideo = () => {
     const html = `
 	  <i class="fas fa-video"></i>
-	  <span>Stop Video</span>
+	  <span>Video on</span>
 	`
     document.querySelector('.mainVideoButton').innerHTML = html
 }
@@ -159,7 +159,7 @@ const setStopVideo = () => {
 const setPlayVideo = () => {
     const html = `
 	<i class="stop fas fa-video-slash"></i>
-	  <span>Play Video</span>
+	  <span>Video off</span>
 	`
     document.querySelector('.mainVideoButton').innerHTML = html
 }
