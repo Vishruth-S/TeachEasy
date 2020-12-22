@@ -15,7 +15,6 @@ const myPeer = new Peer(undefined, {
 
 const peers = {}
 let peerlist = []
-let usersInroom = []
 let myVideoStream
 navigator.mediaDevices
     .getUserMedia({
@@ -30,6 +29,11 @@ navigator.mediaDevices
             peerlist.push(userId)
             connectToNewUser(userId, stream)
             // alert('Somebody connected', userId)
+        })
+
+        socket.on('users-in-room', (usersInroom) => {
+            console.log("im here")
+            console.log(usersInroom)
         })
 
         peer.on('call', (call) => {
@@ -136,7 +140,6 @@ const setUnmuteButton = () => {
 }
 
 const playStop = () => {
-    console.log('object')
     let enabled = myVideoStream.getVideoTracks()[0].enabled
     if (enabled) {
         myVideoStream.getVideoTracks()[0].enabled = false

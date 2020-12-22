@@ -112,7 +112,6 @@ enableDrawing = () => {
     let mainVideos = document.getElementById('videoGrid')
     if (!mainVideos.style.display)
         mainVideos.style.display = "flex"
-    console.log(mainVideos.style.display)
     mainVideos.style.display = mainVideos.style.display === "flex" ? "none" : "flex"
     let board = document.getElementById('DrawingBoard')
     board.style.display = board.style.display === "block" ? "none" : "block"

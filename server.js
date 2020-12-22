@@ -2,8 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server)
-const { v4: uuidv4 } = require('uuid');
-const { addUser, removeUser, getUser, getUsers } = require('./users')
+const { addUser, removeUser, getUsers } = require('./users')
 
 const { ExpressPeerServer } = require('peer')
 const peerServer = ExpressPeerServer(server, {
@@ -53,13 +52,18 @@ io.on('connection', socket => {
         socket.on('message', message => {
             io.to(roomId).emit('createMessage', message, username)
         })
+
+        io.in(roomId).emit('users-in-room', getUsers())
+
         socket.on('disconnect', () => {
             socket.to(roomId).broadcast.emit('user-disconnected', userId)
-            removeUser({ id: userId, name: username, room: roomId })
+            removeUser(userId)
+            // console.log(getUsers())
+            io.in(roomId).emit('users-in-room', getUsers())
         })
     })
-    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
-    console.log(getUsers())
+    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data))
+
 })
 
 const RandomIdGenerate = (length) => {
