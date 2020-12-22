@@ -81,8 +81,6 @@ socket.on('user-disconnected', (userId) => {
 
 peer.on('open', (id) => {
     peerlist.push(id)
-    // console.log(peerlist)
-    // console.log(USERNAME)
     socket.emit('join-room', ROOM_ID, id, USERNAME)
 })
 
