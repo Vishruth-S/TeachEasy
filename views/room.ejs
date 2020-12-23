@@ -49,24 +49,23 @@
 
                     <div class="mainControlsBlock">
                         <!-- <div class="mainControlsButton" id="shareScreen">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Share screen</span>
-                    </div> -->
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Share screen</span>
+                        </div> -->
                         <div class="mainControlsButton" data-toggle="modal" data-target="#userInfo">
-                            <!-- <button data-toggle="modal" data-target="#roomInfo"> -->
                             <div>
                                 <i class="fas fa-user-friends"></i>
                                 <div>Participants</div>
                             </div>
-                            <!-- </button> -->
                         </div>
-                        <!-- Modal -->
+
                         <div class="modal fade" id="userInfo" tabindex="-1" role="dialog"
                             aria-labelledby="userInfoLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="userInfoLabel">Participants</h5>
+                                        <h5 class="modal-title" id="userInfoLabel">Participants: </h5>
+                                        <span id="participant-count"></span>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -82,13 +81,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="mainControlsButton" data-toggle="modal" data-target="#roomInfo">
-                            <!-- <button data-toggle="modal" data-target="#roomInfo"> -->
                             <div>
                                 <i class="fas fa-info-circle"></i>
                                 <div>Info</div>
                             </div>
-                            <!-- </button> -->
                         </div>
                         <!-- Modal -->
                         <div class="modal fade" id="roomInfo" tabindex="-1" role="dialog"
@@ -115,10 +113,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="mainControlsButton">
-                        <i class="fas fa-comment-alt"></i>
-                        <span>Chat</span>
-                    </div> -->
                         <div onClick="enableDrawing()" class="mainControlsButton" id="enableDrawingBoard">
                             <i class="fas fa-record-vinyl"></i>
                             <span>Toggle whiteboard</span>

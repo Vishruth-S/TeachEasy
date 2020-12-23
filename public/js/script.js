@@ -29,6 +29,9 @@ navigator.mediaDevices
         const userElement = document.createElement('li')
         userElement.innerHTML = USERNAME
         list.appendChild(userElement)
+        const particpantCount = document.querySelector("#participant-count");
+        particpantCount.innerHTML = "1";
+
         socket.on('user-connected', (userId, username) => {
             peerlist.push(userId)
             connectToNewUser(userId, stream)
@@ -44,6 +47,8 @@ navigator.mediaDevices
                 userElement.innerHTML = user.name
                 list.appendChild(userElement)
             })
+            const particpantCount = document.querySelector("#participant-count");
+            particpantCount.innerHTML = usersInroom.length;
         })
 
         peer.on('call', (call) => {
@@ -85,7 +90,6 @@ navigator.mediaDevices
     })
 socket.on('user-disconnected', (userId) => {
     peerlist = peerlist.filter(item => item !== userId)
-    // console.log(peerlist)
     if (peers[userId]) peers[userId].close()
 })
 
@@ -182,6 +186,8 @@ const copyMeetingCode = () => {
 
     document.execCommand("copy");
 }
+
+// ========= screenshare -- BUG ============== //
 ///////////////////////////////////
 // const stopScreenShare = () => {
 //     let videoTrack = myVideoStream.getVideoTracks()[0]
