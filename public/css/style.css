@@ -68,6 +68,7 @@ video {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 4px 22px;
     min-width: 80px;
     cursor: pointer;
@@ -84,9 +85,7 @@ video {
 }
 
 .mainControlsButton:hover {
-    /* background-color: #2e2e2e; */
-    /* border-radius: 5px; */
-    /* color: #d5d5d5; */
+    background-color: #b4b4b4;
 }
 
 .mainControlsButtonEndMeeting {
@@ -109,6 +108,14 @@ video {
     border-radius: 50%;
     height: 60px;
     width: 60px;
+}
+
+.leaveMeetingLink {
+    color: #fff;
+}
+
+.leaveMeetingLink:hover {
+    color: #fff;
 }
 
 .unmute, .stop {

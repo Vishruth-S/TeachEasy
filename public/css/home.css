@@ -2,7 +2,7 @@
 
 .navbar {
     text-align: left;
-    background-color: #353540;
+    background-color: #E6E7E8
 }
 
 .navbar-brand {
@@ -10,8 +10,8 @@
 }
 
 .nav-logo {
-    width: 120px;
-    margin: 15px;
+    width: 230px;
+    margin: 0px;
 }
 
 .navbar-link {

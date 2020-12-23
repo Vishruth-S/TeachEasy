@@ -38,7 +38,7 @@ navigator.mediaDevices
         socket.on('users-in-room', (usersInroom) => {
             const list = document.querySelector('#users')
             list.innerHTML = ""
-
+            usersInroom.sort((a, b) => a.name.localeCompare(b.name));
             usersInroom.forEach(user => {
                 const userElement = document.createElement('li')
                 userElement.innerHTML = user.name
