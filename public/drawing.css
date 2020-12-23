@@ -1,6 +1,6 @@
 #canvasBlock {
     height: 600px;
-    width: 1200px;
+    width: 1280px;
     overflow: hidden;
 }
 
@@ -11,7 +11,10 @@
 }
 
 .colors {
-    top: 50px;
+    background: #696969;
+    border: 2px solid;
+    width: 310px;
+    padding-left: 20px;
 }
 
 .color {

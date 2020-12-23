@@ -37,7 +37,7 @@
         context.moveTo(x0, y0);
         context.lineTo(x1, y1);
         context.strokeStyle = color;
-        context.lineWidth = 2;
+        context.lineWidth = color === "white" ? 20 : 2;
         context.stroke();
         context.closePath();
 
