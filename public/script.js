@@ -24,7 +24,11 @@ navigator.mediaDevices
     .then((stream) => {
         myVideoStream = stream
         addVideoStream(myVideo, stream)
-
+        const list = document.querySelector('#users')
+        list.innerHTML = ""
+        const userElement = document.createElement('div')
+        userElement.innerHTML = USERNAME
+        list.appendChild(userElement)
         socket.on('user-connected', (userId, username) => {
             peerlist.push(userId)
             connectToNewUser(userId, stream)
@@ -32,8 +36,14 @@ navigator.mediaDevices
         })
 
         socket.on('users-in-room', (usersInroom) => {
-            console.log("im here")
-            console.log(usersInroom)
+            const list = document.querySelector('#users')
+            list.innerHTML = ""
+
+            usersInroom.forEach(user => {
+                const userElement = document.createElement('div')
+                userElement.innerHTML = user.name
+                list.appendChild(userElement)
+            })
         })
 
         peer.on('call', (call) => {
