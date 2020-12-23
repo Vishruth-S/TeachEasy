@@ -26,7 +26,7 @@ navigator.mediaDevices
         addVideoStream(myVideo, stream)
         const list = document.querySelector('#users')
         list.innerHTML = ""
-        const userElement = document.createElement('div')
+        const userElement = document.createElement('li')
         userElement.innerHTML = USERNAME
         list.appendChild(userElement)
         socket.on('user-connected', (userId, username) => {
@@ -40,7 +40,7 @@ navigator.mediaDevices
             list.innerHTML = ""
 
             usersInroom.forEach(user => {
-                const userElement = document.createElement('div')
+                const userElement = document.createElement('li')
                 userElement.innerHTML = user.name
                 list.appendChild(userElement)
             })
@@ -64,7 +64,7 @@ navigator.mediaDevices
         })
 
         socket.on('createMessage', (message, username) => {
-            $('ul').append(`<li >
+            $('.messagesContainer').append(`<li >
 								<span class="messageHeader">
 									<span>
 										<span class="messageSender">${username}</span> 
@@ -174,6 +174,14 @@ const setPlayVideo = () => {
     document.querySelector('.mainVideoButton').innerHTML = html
 }
 
+const copyMeetingCode = () => {
+    let copyText = document.getElementById("myInput");
+
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+}
 ///////////////////////////////////
 // const stopScreenShare = () => {
 //     let videoTrack = myVideoStream.getVideoTracks()[0]

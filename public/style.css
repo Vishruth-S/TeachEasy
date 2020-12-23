@@ -4,10 +4,6 @@
     user-select: none;
 }
 
-a {
-    color: white !important;
-}
-
 a:hover {
     text-decoration: none !important;
 }
@@ -225,4 +221,8 @@ video {
 
 #copyBtn {
     border: 0px;
+}
+
+.users-modal-body {
+    padding: 34px !important;
 }
