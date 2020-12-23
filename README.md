@@ -1,3 +1,2 @@
-  
-:construction: Work in Progress :construction:   
-nothing to see here, come back later
+# TeachEasy
+The online teaching app of 2020
