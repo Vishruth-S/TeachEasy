@@ -73,4 +73,6 @@ const RandomIdGenerate = (length) => {
     return result;
 }
 
-server.listen(process.env.PORT || 3030);  
+server.listen(process.env.PORT || 3030, () => {
+    console.log("App running at http://localhost:3030")
+});  
