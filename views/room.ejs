@@ -1,192 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zoom clone</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="drawing.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+<%- include("./partials/header.ejs") %>
     <script>
         const ROOM_ID = "<%= roomId %>"
         const USERNAME = "<%= username %>"
     </script>
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <div class="main">
+        <div class="main">
 
-        <div class="mainLeft">
-            <div class="row">
-                <div class="col-lg-10">
-                    <div id="DrawingBoard" style="display: none;">
+            <div class="mainLeft">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div id="DrawingBoard" style="display: none;">
 
-                        <div id="canvasBlock">
-                            <canvas class="whiteboard"></canvas>
-                        </div>
-                        <div class="colors">
-                            <div class="color black"></div>
-                            <div class="color red"></div>
-                            <div class="color green"></div>
-                            <div class="color blue"></div>
-                            <div class="color white"></div>
-                            <!-- <button type="button" onclick="emitAndCanvas()" id="btnClear">CLEAR</button> -->
+                            <div id="canvasBlock">
+                                <canvas class="whiteboard"></canvas>
+                            </div>
+                            <div class="colors">
+                                <div class="color black"></div>
+                                <div class="color red"></div>
+                                <div class="color green"></div>
+                                <div class="color blue"></div>
+                                <div class="color white"></div>
+                                <!-- <button type="button" onclick="emitAndCanvas()" id="btnClear">CLEAR</button> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="mainVideos">
-                <div id="videoGrid"> </div>
+                <div class="mainVideos">
+                    <div id="videoGrid"> </div>
 
-            </div>
-
-
-            <!-- ============= -->
-            <div class="mainControls">
-                <div class="mainControlsBlock">
-                    <div onclick="muteUnmute()" class="mainControlsButton mainMuteButton">
-                        <i class="fas fa-microphone"></i>
-                        <span>Mute</span>
-                    </div>
-                    <div onclick="playStop()" class="mainControlsButton mainVideoButton">
-                        <i class="fas fa-video"></i>
-                        <span>Video on</span>
-                    </div>
                 </div>
 
-                <div class="mainControlsBlock">
-                    <div class="mainControlsButton" id="shareScreen">
+
+                <!-- ============= -->
+                <div class="mainControls">
+                    <div class="mainControlsBlock">
+                        <div onclick="muteUnmute()" class="mainControlsButton mainMuteButton">
+                            <i class="fas fa-microphone"></i>
+                            <span>Mute</span>
+                        </div>
+                        <div onclick="playStop()" class="mainControlsButton mainVideoButton">
+                            <i class="fas fa-video"></i>
+                            <span>Video on</span>
+                        </div>
+                    </div>
+
+                    <div class="mainControlsBlock">
+                        <!-- <div class="mainControlsButton" id="shareScreen">
                         <i class="fas fa-shield-alt"></i>
                         <span>Share screen</span>
-                    </div>
-                    <div class="mainControlsButton" data-toggle="modal" data-target="#userInfo">
-                        <!-- <button data-toggle="modal" data-target="#roomInfo"> -->
-                        <div>
-                            <i class="fas fa-user-friends"></i>
-                            <div>User Info</div>
+                    </div> -->
+                        <div class="mainControlsButton" data-toggle="modal" data-target="#userInfo">
+                            <!-- <button data-toggle="modal" data-target="#roomInfo"> -->
+                            <div>
+                                <i class="fas fa-user-friends"></i>
+                                <div>Participants</div>
+                            </div>
+                            <!-- </button> -->
                         </div>
-                        <!-- </button> -->
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="userInfoLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="userInfoLabel">Meeting info</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="users"></div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="userInfo" tabindex="-1" role="dialog"
+                            aria-labelledby="userInfoLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="userInfoLabel">Participants</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body users-modal-body">
+                                        <ul id="users">
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mainControlsButton" data-toggle="modal" data-target="#roomInfo">
-                        <!-- <button data-toggle="modal" data-target="#roomInfo"> -->
-                        <div>
-                            <i class="fas fa-user-friends"></i>
-                            <div>Info</div>
+                        <div class="mainControlsButton" data-toggle="modal" data-target="#roomInfo">
+                            <!-- <button data-toggle="modal" data-target="#roomInfo"> -->
+                            <div>
+                                <i class="fas fa-info-circle"></i>
+                                <div>Info</div>
+                            </div>
+                            <!-- </button> -->
                         </div>
-                        <!-- </button> -->
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="roomInfo" tabindex="-1" role="dialog" aria-labelledby="roomInfoLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="roomInfoLabel">Meeting info</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <span>Room code: <input type="text" value="<%= roomId%>" id="myInput">
-                                    </span>
-                                    <button onclick="copyMeetingCode()" id="copyBtn">
-                                        <i class="fas fa-copy"></i>
-                                    </button>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="roomInfo" tabindex="-1" role="dialog"
+                            aria-labelledby="roomInfoLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="roomInfoLabel">Meeting info</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>Room code: <input type="text" value="<%= roomId%>" id="myInput">
+                                        </span>
+                                        <button onclick="copyMeetingCode()" id="copyBtn">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- <div class="mainControlsButton">
+                        <!-- <div class="mainControlsButton">
                         <i class="fas fa-comment-alt"></i>
                         <span>Chat</span>
                     </div> -->
-                    <div onClick="enableDrawing()" class="mainControlsButton" id="enableDrawingBoard">
-                        <i class="fas fa-record-vinyl"></i>
-                        <span>Toggle whiteboard</span>
+                        <div onClick="enableDrawing()" class="mainControlsButton" id="enableDrawingBoard">
+                            <i class="fas fa-record-vinyl"></i>
+                            <span>Toggle whiteboard</span>
+                        </div>
                     </div>
+
+                    <div class="mainControlsBlock">
+                        <div class="mainControlsButtonEndMeeting">
+                            <span class="leaveMeeting"><a href="/">End</a></span>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="mainControlsBlock">
-                    <div class="mainControlsButtonEndMeeting">
-                        <span class="leaveMeeting"><a href="/">End</a></span>
-                    </div>
+
+
+
+            </div>
+            <div class="mainRight">
+                <div class="mainHeader">
+                    <h6>Chat</h6>
                 </div>
+                <div class="mainChatWindow">
+                    <ul class="messagesContainer">
+                    </ul>
+                </div>
+                <hr />
+                <div class="mainMessageContainer">
 
-            </div>
-
-
-
-
-        </div>
-        <div class="mainRight">
-            <div class="mainHeader">
-                <h6>Chat</h6>
-            </div>
-            <div class="mainChatWindow">
-                <ul class="messagesContainer">
-                </ul>
-            </div>
-            <hr />
-            <div class="mainMessageContainer">
-
-                <input id="chatMessage" type="text" placeholder="Type message here...">
+                    <input id="chatMessage" type="text" placeholder="Type message here...">
+                </div>
             </div>
         </div>
-    </div>
 
-    <script src="script.js"></script>
-    <script src="drawing.js"></script>
-    <script>
-        const copyMeetingCode = () => {
-            let copyText = document.getElementById("myInput");
+        <script src="script.js"></script>
+        <script src="drawing.js"></script>
+    </body>
 
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-
-            document.execCommand("copy");
-        }
-
-
-    </script>
-</body>
-
-</html>
+    </html>

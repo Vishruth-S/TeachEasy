@@ -1,27 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("./partials/header.ejs") %>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
+    <body>
+        <div class="navbar">
+            <span class="navbar-brand"><img class="nav-logo" alt="teachEasy_logo" src="" /></span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div>
+                        <h2 class="display-4 main-heading"> TeachEasy </h2>
+                        <h3>The video call app for the students of 2020</h3>
+                    </div>
 
-<body>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-wrap">
+                        <div class="tabs">
+                            <h3 class="signup-tab"><a class="active" href="#signup-tab-content">CREATE</a></h3>
+                            <h3 class="login-tab"><a href="#login-tab-content">JOIN</a></h3>
+                        </div>
+                        <div class="tabs-content">
 
-    <h3> Hello home page</h3>
-    <form action="/create" method="POST">
-        <input class="usernameInput" name="name" type="text" placeholder="Your name" required>
-        <input name="code" type="text" value="<%=id%>" readonly>
-        <button type="submit">Create</button>
-    </form>
-    <form action="/join" method="POST">
-        <input class="usernameInput" type="text" name="name" placeholder="Your name" required>
-        <input type="text" name="code" placeholder="Enter room code">
-        <button type="submit">Join</button>
-    </form>
+                            <div id="signup-tab-content" class="active">
+                                <form class="signup-form" action="/create" method="POST">
+                                    <input class="usernameInput input" id="user_email" name="name" type="text"
+                                        placeholder="Your name" required>
+                                    <input name="code" type="text" class="input" id="user_name" value="<%=id%>"
+                                        readonly>
+                                    <input type="submit" class="button" value="Create">
+                                </form>
+                            </div>
 
-    <!-- <h3><%=id%></h3> -->
-</body>
+                            <div id="login-tab-content">
+                                <form class="login-form" action="/join" method="POST">
+                                    <input class="usernameInput input" id="user_login" type="text" name="name"
+                                        placeholder="Your name" required>
+                                    <input type="text" class="input" id="user_pass" name="code"
+                                        placeholder="Enter room code" required>
+                                    <input type="submit" class="button" value="Join">
+                                </form>
+                            </div>
 
-</html>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            jQuery(document).ready(function ($) {
+                tab = $('.tabs h3 a');
+
+                tab.on('click', function (event) {
+                    event.preventDefault();
+                    tab.removeClass('active');
+                    $(this).addClass('active');
+
+                    tab_content = $(this).attr('href');
+                    $('div[id$="tab-content"]').removeClass('active');
+                    $(tab_content).addClass('active');
+                });
+            });
+        </script>
+        <!-- <h3><%=id%></h3> -->
+    </body>
+
+    </html>
