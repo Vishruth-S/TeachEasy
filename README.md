@@ -3,6 +3,9 @@ The online teaching app of 2020
 
 ![FrontPage](https://github.com/Vishruth-S/TeachEasy/blob/main/blob/teachEasy1.png)
 
+# View Demo
+https://youtu.be/YzbGFNSXcyE
+
 # Getting Started
 
 1. Clone/Download this repo
