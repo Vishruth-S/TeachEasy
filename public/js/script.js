@@ -187,6 +187,32 @@ const copyMeetingCode = () => {
     document.execCommand("copy");
 }
 
+const recongnizeSpeech = () => {
+    var action = document.getElementById("action");
+
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+
+    recognition.onstart = () => {
+        action.innerHTML = "<small>listening, please speak...</small>";
+    };
+
+    recognition.onspeechend = () => {
+        action.innerHTML = "<small>stopped listening...</small>";
+        recognition.stop();
+    }
+
+    let text = $('#chatMessage')
+
+    recognition.onresult = (event) => {
+        var transcript = event.results[0][0].transcript;
+        text.val(transcript)
+    };
+
+    // start recognition
+    recognition.start();
+}
+
 // ========= screenshare -- BUG ============== //
 ///////////////////////////////////
 // const stopScreenShare = () => {
