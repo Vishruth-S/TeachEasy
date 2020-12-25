@@ -15,6 +15,7 @@ const myPeer = new Peer(undefined, {
 
 const peers = {}
 let peerlist = []
+let participantsInRoom = []
 let myVideoStream
 navigator.mediaDevices
     .getUserMedia({
@@ -29,6 +30,7 @@ navigator.mediaDevices
         const userElement = document.createElement('li')
         userElement.innerHTML = USERNAME
         list.appendChild(userElement)
+        participantsInRoom.push(USERNAME)
         const particpantCount = document.querySelector("#participant-count");
         particpantCount.innerHTML = "1";
 
@@ -41,11 +43,13 @@ navigator.mediaDevices
         socket.on('users-in-room', (usersInroom) => {
             const list = document.querySelector('#users')
             list.innerHTML = ""
+            participantsInRoom = []
             usersInroom.sort((a, b) => a.name.localeCompare(b.name));
             usersInroom.forEach(user => {
                 const userElement = document.createElement('li')
                 userElement.innerHTML = user.name
                 list.appendChild(userElement)
+                participantsInRoom.push(user.name)
             })
             const particpantCount = document.querySelector("#participant-count");
             particpantCount.innerHTML = usersInroom.length;
@@ -124,6 +128,8 @@ const scrollToBottom = () => {
     d.scrollTop(d.prop('scrollHeight'))
 }
 
+// ====== MUTE AUDIO AND VIDEO FUNCTIONS ========= // 
+
 const muteUnmute = () => {
     const enabled = myVideoStream.getAudioTracks()[0].enabled
     if (enabled) {
@@ -178,6 +184,7 @@ const setPlayVideo = () => {
     document.querySelector('.mainVideoButton').innerHTML = html
 }
 
+// ========= MEETING INFO ============== //
 const copyMeetingCode = () => {
     let copyText = document.getElementById("myInput");
 
@@ -187,6 +194,7 @@ const copyMeetingCode = () => {
     document.execCommand("copy");
 }
 
+// ========= SPEECH TO TEXT =============== //
 const recongnizeSpeech = () => {
     var action = document.getElementById("action");
 
@@ -212,6 +220,30 @@ const recongnizeSpeech = () => {
     // start recognition
     recognition.start();
 }
+
+// ============= ATTENDANCE ============ //
+var allStudents
+document.getElementById('inputfile')
+    .addEventListener('change', function () {
+
+        var fr = new FileReader();
+        fr.onload = () => {
+            var fileContents = fr.result
+            allStudents = fileContents.split('\n');
+            participantsInRoom.map(x => x.toLowerCase())
+            let absentees = allStudents.filter(el => !participantsInRoom.includes(el.trim().toLowerCase()))
+            console.log(absentees)
+            const abList = document.querySelector('#absentees')
+            abList.innerHTML = ""
+            absentees.forEach(ab => {
+                const absenteeElement = document.createElement('li')
+                absenteeElement.innerHTML = ab
+                abList.appendChild(absenteeElement)
+            })
+        }
+
+        fr.readAsText(this.files[0]);
+    })
 
 // ========= screenshare -- BUG ============== //
 ///////////////////////////////////
