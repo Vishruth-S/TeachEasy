@@ -8,7 +8,6 @@
     <body>
 
         <div class="main">
-
             <div class="mainLeft">
                 <div class="row">
                     <div class="col-lg-10">
@@ -74,16 +73,17 @@
                                         <ul id="users">
                                         </ul>
                                     </div>
-                                    <h5>Find absentees</h5>
-                                    <p>Now you can easily find all absentees. Just upload a text file containing the
-                                        list of all students and we'll take the attendance for you :)</p>
-                                    <input type="file" name="inputfile" id="inputfile">
-                                    <div>
-                                        <ul id="absentees"></ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                    <div class="modal-body">
+                                        <h5>Find absentees</h5>
+                                        <p>Now you can easily find all absentees. Just upload a text file containing the
+                                            list of all students and we'll take the attendance for you :)</p>
+                                        <input type="file" name="inputfile" id="inputfile">
+                                        <button id="updateAttendance" class="hidden"
+                                            onclick="calculateAttendance()">Update</button>
+                                        <h6 id="absenteeCount"></h6>
+                                        <div class="absentee-block">
+                                            <ul id="absentees"></ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -137,9 +137,6 @@
 
                 </div>
 
-
-
-
             </div>
             <div class="mainRight">
                 <div class="mainHeader">
@@ -154,7 +151,8 @@
 
                     <input id="chatMessage" type="text" placeholder="Type message here...">
                 </div>
-                <button type="button" onclick="recongnizeSpeech()">Speech to Text</button> <span id="action"></span>
+                <hr />
+                <button type="button" onclick="recongnizeSpeech()">Speak to type</button> <span id="action"></span>
             </div>
         </div>
 

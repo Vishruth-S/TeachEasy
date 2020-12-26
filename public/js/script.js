@@ -1,4 +1,3 @@
-///////////////////////////////////////////////////////////
 const socket = io('/')
 const videoGrid = document.getElementById('videoGrid')
 const myVideo = document.createElement('video')
@@ -51,8 +50,8 @@ navigator.mediaDevices
                 list.appendChild(userElement)
                 participantsInRoom.push(user.name)
             })
-            const particpantCount = document.querySelector("#participant-count");
-            particpantCount.innerHTML = usersInroom.length;
+            const particpantCount = document.querySelector("#participant-count")
+            particpantCount.innerHTML = usersInroom.length
         })
 
         peer.on('call', (call) => {
@@ -186,28 +185,28 @@ const setPlayVideo = () => {
 
 // ========= MEETING INFO ============== //
 const copyMeetingCode = () => {
-    let copyText = document.getElementById("myInput");
+    let copyText = document.getElementById("myInput")
 
     copyText.select();
-    copyText.setSelectionRange(0, 99999);
+    copyText.setSelectionRange(0, 99999)
 
-    document.execCommand("copy");
+    document.execCommand("copy")
 }
 
 // ========= SPEECH TO TEXT =============== //
 const recongnizeSpeech = () => {
-    var action = document.getElementById("action");
+    var action = document.getElementById("action")
 
-    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
     var recognition = new SpeechRecognition();
 
     recognition.onstart = () => {
-        action.innerHTML = "<small>listening, please speak...</small>";
+        action.innerHTML = "<small>listening, please speak...</small>"
     };
 
     recognition.onspeechend = () => {
-        action.innerHTML = "<small>stopped listening...</small>";
-        recognition.stop();
+        action.innerHTML = "<small>stopped listening...</small>"
+        recognition.stop()
     }
 
     let text = $('#chatMessage')
@@ -217,7 +216,6 @@ const recongnizeSpeech = () => {
         text.val(transcript)
     };
 
-    // start recognition
     recognition.start();
 }
 
@@ -229,21 +227,27 @@ document.getElementById('inputfile')
         var fr = new FileReader();
         fr.onload = () => {
             var fileContents = fr.result
-            allStudents = fileContents.split('\n');
-            participantsInRoom.map(x => x.toLowerCase())
-            let absentees = allStudents.filter(el => !participantsInRoom.includes(el.trim().toLowerCase()))
-            console.log(absentees)
-            const abList = document.querySelector('#absentees')
-            abList.innerHTML = ""
-            absentees.forEach(ab => {
-                const absenteeElement = document.createElement('li')
-                absenteeElement.innerHTML = ab
-                abList.appendChild(absenteeElement)
-            })
+            allStudents = fileContents.split('\n')
+            calculateAttendance()
         }
 
         fr.readAsText(this.files[0]);
     })
+const calculateAttendance = () => {
+    let current = participantsInRoom.map(x => x.toLowerCase())
+    let absentees = allStudents.filter(el => !current.includes(el.trim().toLowerCase()))
+    // console.log(absentees)
+    const abList = document.querySelector('#absentees')
+    abList.innerHTML = ""
+    absentees.forEach(ab => {
+        const absenteeElement = document.createElement('li')
+        absenteeElement.innerHTML = ab
+        abList.appendChild(absenteeElement)
+    })
+    document.getElementById('absenteeCount').innerHTML = "Absentees: " + absentees.length
+    document.getElementById('updateAttendance').classList.remove("hidden")
+}
+
 
 // ========= screenshare -- BUG ============== //
 ///////////////////////////////////

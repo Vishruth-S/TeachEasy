@@ -231,10 +231,18 @@ video {
 }
 
 .users-modal-body {
-    padding: 34px !important;
+    padding: 10px 34px !important;
 }
 
 #participant-count {
     margin-left: 10px;
     font-size: 20px;
+}
+
+.absentee-block {
+    margin-left: 20px;
+}
+
+.hidden {
+    display: none;
 }
