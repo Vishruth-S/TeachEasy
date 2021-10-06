@@ -241,3 +241,23 @@ video {
     font-size: 20px;
 }
 
+.absentee-block {
+    margin-left: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.close-btn {
+    color: #fff !important;
+    background-color: #008037 !important;
+}
+
+.speech-btn {
+    padding: 8px;
+    background: #008037;
+    color: white;
+    border: none;
+    border-radius: 51px;
+}
